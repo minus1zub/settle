@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ProductPlaceholder } from '../ProductPlaceholder/ProductPlaceholder';
+import { ProductThumb } from '../ProductThumb/ProductThumb';
 import { StatusSticker } from '../StatusSticker/StatusSticker';
 import type { SettleOrder } from '../../types/order';
 import { formatPrice, pluralizeProducts } from '../../utils/price';
@@ -14,17 +14,17 @@ type Props = {
 
 const getItemCount = (order: SettleOrder) => order.items.reduce((sum, item) => sum + item.quantity, 0);
 
-const getDisplayNumber = (order: SettleOrder) => order.orderNumber || 'ST-собирается';
+const getDisplayNumber = (order: SettleOrder) => order.orderNumber || 'собирается';
 
 const getEmotionalStatus = (order: SettleOrder, variant: PassportVariant) => {
   const count = getItemCount(order);
 
   if (variant === 'public') return 'Можно отправлять';
   if (variant === 'ready' || order.status === 'assembled') return 'Собран';
-  if (variant === 'review' && order.address) return 'Готов к карточке';
-  if (order.address && count > 0) return 'Почти собран';
-  if (count >= 3) return 'Уже похож';
-  if (count > 0) return 'Начался';
+  if (variant === 'review' && order.address) return 'Проверяем заказ';
+  if (order.address && count > 0) return 'Готов к проверке';
+  if (count >= 3) return 'Добавьте адрес';
+  if (count > 0) return 'Выбираем товары';
   return 'Пустой';
 };
 
@@ -32,10 +32,10 @@ const getStickers = (order: SettleOrder, variant: PassportVariant) => {
   const count = getItemCount(order);
   const stickers: Array<{ label: string; tone: 'blue' | 'mint' | 'orange' | 'lilac' | 'dark' | 'green' }> = [];
 
-  if (count > 0) stickers.push({ label: 'товары на месте', tone: 'blue' });
-  if (count >= 3) stickers.push({ label: 'уже похоже', tone: 'mint' });
+  if (count > 0) stickers.push({ label: 'в корзине', tone: 'blue' });
+  if (count >= 3) stickers.push({ label: 'можно к адресу', tone: 'mint' });
   if (order.address) stickers.push({ label: 'адрес закреплен', tone: 'orange' });
-  if (variant === 'review') stickers.push({ label: 'карточка ждет', tone: 'lilac' });
+  if (variant === 'review') stickers.push({ label: 'проверка', tone: 'lilac' });
   if (variant === 'ready' || variant === 'public' || order.status === 'assembled') {
     stickers.push({ label: 'выглядит убедительно', tone: 'green' });
     stickers.push({ label: 'можно отправлять', tone: 'dark' });
@@ -87,7 +87,7 @@ export const OrderPassport = ({ order, variant = 'draft', className }: Props) =>
       <div className="order-passport__items">
         {visibleItems.map((item) => (
           <div className="order-passport__item" key={item.productId}>
-            <ProductPlaceholder category={item.image ?? item.category} size="sm" />
+            <ProductThumb category={item.image ?? item.category} imageUrl={item.imageUrl} title={item.title} />
             <div>
               <strong>{item.title}</strong>
               <span>

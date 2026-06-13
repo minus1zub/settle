@@ -74,6 +74,7 @@ export const ProductPage = () => {
             className={`secondary-button ${isFavorite ? 'active' : ''}`}
             onClick={() => {
               toggleFavorite(product.id);
+              impactHaptic('light');
               toast.success(isFavorite ? 'Убрано из сохраненного' : 'Сохранено');
             }}
           >

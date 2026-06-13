@@ -58,6 +58,7 @@ export const useOrderStore = create<OrderStore>()(
                 title: product.title,
                 price: product.price,
                 image: product.image,
+                imageUrl: product.imageUrl,
                 category: product.category,
                 room: product.room,
                 quantity: 1,

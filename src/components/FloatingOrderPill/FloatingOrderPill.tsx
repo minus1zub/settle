@@ -20,6 +20,8 @@ export const FloatingOrderPill = () => {
   const hasAddress = useOrderStore((state) => Boolean(state.address));
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const isVisible = itemCount > 0 && !shouldHideOnRoute(location.pathname);
+  const statusTone = hasAddress ? 'orange' : itemCount >= 3 ? 'mint' : 'blue';
+  const statusLabel = hasAddress ? 'проверить' : itemCount >= 3 ? 'добавить адрес' : 'выбираем';
 
   return (
     <AnimatePresence>
@@ -42,9 +44,7 @@ export const FloatingOrderPill = () => {
                 <span> · </span>
                 <AnimatedValue value={formatPrice(totalPrice)} />
               </strong>
-              <StatusSticker tone={hasAddress ? 'orange' : itemCount >= 3 ? 'mint' : 'blue'}>
-                {hasAddress ? 'адрес есть' : itemCount >= 3 ? 'уже похоже' : 'начался'}
-              </StatusSticker>
+              <StatusSticker tone={statusTone}>{statusLabel}</StatusSticker>
             </span>
           </Link>
         </motion.div>

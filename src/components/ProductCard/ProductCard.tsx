@@ -17,6 +17,7 @@ type Props = {
 
 export const ProductCard = ({ product }: Props) => {
   const [justAdded, setJustAdded] = useState(false);
+  const [sparkleBurst, setSparkleBurst] = useState<'favorite' | 'add'>();
   const reduceMotion = useReducedMotion();
   const itemCount = useOrderStore((state) => state.items.reduce((sum, item) => sum + item.quantity, 0));
   const currentQuantity = useOrderStore((state) => state.items.find((item) => item.productId === product.id)?.quantity ?? 0);
@@ -31,13 +32,15 @@ export const ProductCard = ({ product }: Props) => {
     addProduct(product);
     impactHaptic('light');
     setJustAdded(true);
+    setSparkleBurst('add');
     window.setTimeout(() => setJustAdded(false), 700);
+    window.setTimeout(() => setSparkleBurst(undefined), 520);
 
     if (!hasMilestone('first-item')) {
       markMilestone('first-item');
       impactHaptic('medium');
-      toast.success('Заказ начался', {
-        description: 'Первый предмет на месте.',
+      toast.success('Первый товар в корзине', {
+        description: 'Теперь можно собрать комнату вокруг него.',
       });
       return;
     }
@@ -52,8 +55,16 @@ export const ProductCard = ({ product }: Props) => {
     }
 
     toast.success('Добавили', {
-      description: 'Заказ стал на один предмет убедительнее.',
+      description: 'Корзина стала ближе к заказу.',
     });
+  };
+
+  const handleFavorite = () => {
+    toggleFavorite(product.id);
+    impactHaptic('light');
+    setSparkleBurst('favorite');
+    window.setTimeout(() => setSparkleBurst(undefined), 520);
+    toast.success(isFavorite ? 'Убрано из сохраненного' : 'Сохранено');
   };
 
   return (
@@ -85,6 +96,23 @@ export const ProductCard = ({ product }: Props) => {
         />
       </Link>
       <div className="product-card__veil" aria-hidden="true" />
+      <AnimatePresence>
+        {sparkleBurst && (
+          <motion.span
+            className={`product-card__sparkles product-card__sparkles--${sparkleBurst}`}
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.88 }}
+            transition={{ duration: 0.16 }}
+            aria-hidden="true"
+          >
+            <i />
+            <i />
+            <i />
+            <i />
+          </motion.span>
+        )}
+      </AnimatePresence>
       <div className="product-card__body">
         <div>
           <Link to={`/products/${product.id}`} className="product-card__title">
@@ -98,10 +126,7 @@ export const ProductCard = ({ product }: Props) => {
             <button
               type="button"
               className={`icon-button ${isFavorite ? 'active' : ''}`}
-              onClick={() => {
-                toggleFavorite(product.id);
-                toast.success(isFavorite ? 'Убрано из сохраненного' : 'Сохранено');
-              }}
+              onClick={handleFavorite}
               aria-label="Сохранить"
             >
               <Heart size={18} />

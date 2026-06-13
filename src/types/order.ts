@@ -8,6 +8,7 @@ export type SettleOrderItem = {
   title: string;
   price: number;
   image?: ProductCategory;
+  imageUrl?: string;
   category: ProductCategory;
   room: ProductRoom;
   quantity: number;

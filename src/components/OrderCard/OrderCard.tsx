@@ -1,7 +1,7 @@
 import type { SettleOrder } from '../../types/order';
 import { buildPublicAddressLabel } from '../../features/address/address.privacy';
 import { formatPrice, pluralizeProducts } from '../../utils/price';
-import { ProductPlaceholder } from '../ProductPlaceholder/ProductPlaceholder';
+import { ProductThumb } from '../ProductThumb/ProductThumb';
 
 type Props = {
   order: SettleOrder;
@@ -22,12 +22,12 @@ export const OrderCard = ({ order }: Props) => {
         </div>
         <div>
           <h2>{order.title || 'Мой заказ'}</h2>
-          <p>№ {order.orderNumber || 'ST-0000'}</p>
+          <p>№ {order.orderNumber || '0000000'}</p>
         </div>
         <div className="order-card-preview__items">
           {visibleItems.map((item) => (
             <div className="order-card-row" key={item.productId}>
-              <ProductPlaceholder category={item.image ?? item.category} size="sm" />
+              <ProductThumb category={item.image ?? item.category} imageUrl={item.imageUrl} title={item.title} />
               <div>
                 <span>{item.title}</span>
                 <small>

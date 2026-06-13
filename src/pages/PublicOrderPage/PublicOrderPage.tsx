@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
-import { ProductPlaceholder } from '../../components/ProductPlaceholder/ProductPlaceholder';
+import { ProductThumb } from '../../components/ProductThumb/ProductThumb';
 import { buildPublicAddressLabel } from '../../features/address/address.privacy';
 import { orderService } from '../../services/orderService';
 import type { SettleOrder } from '../../types/order';
@@ -91,7 +91,7 @@ export const PublicOrderPage = () => {
         <div className="order-list">
           {order.items.map((item) => (
             <div className="order-item" key={item.productId}>
-              <ProductPlaceholder category={item.image ?? item.category} size="sm" />
+              <ProductThumb category={item.image ?? item.category} imageUrl={item.imageUrl} title={item.title} />
               <div>
                 <strong>{item.title}</strong>
                 <span>

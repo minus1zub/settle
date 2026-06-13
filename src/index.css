@@ -654,6 +654,57 @@ p {
   pointer-events: none;
 }
 
+.product-card__sparkles {
+  position: absolute;
+  z-index: 5;
+  width: 38px;
+  height: 38px;
+  pointer-events: none;
+}
+
+.product-card__sparkles--favorite {
+  right: 52px;
+  bottom: 14px;
+}
+
+.product-card__sparkles--add {
+  right: 10px;
+  bottom: 14px;
+}
+
+.product-card__sparkles i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+  clip-path: polygon(50% 0, 62% 36%, 100% 50%, 62% 64%, 50% 100%, 38% 64%, 0 50%, 38% 36%);
+  filter: drop-shadow(0 2px 5px rgba(59, 91, 255, 0.24));
+  animation: tinySpark 460ms ease-out forwards;
+}
+
+.product-card__sparkles i:nth-child(1) {
+  left: 5px;
+  top: 12px;
+}
+
+.product-card__sparkles i:nth-child(2) {
+  left: 18px;
+  top: 2px;
+  animation-delay: 45ms;
+}
+
+.product-card__sparkles i:nth-child(3) {
+  right: 5px;
+  top: 16px;
+  animation-delay: 85ms;
+}
+
+.product-card__sparkles i:nth-child(4) {
+  left: 15px;
+  bottom: 4px;
+  animation-delay: 120ms;
+}
+
 .product-card__media {
   display: block;
   position: absolute;
@@ -789,6 +840,26 @@ p {
 .product-placeholder--lg {
   min-height: 280px;
   border-radius: var(--radius-xl);
+}
+
+.product-thumb {
+  display: block;
+  object-fit: cover;
+  background: var(--color-surface-soft);
+}
+
+.product-thumb--sm {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  box-shadow: 0 10px 22px rgba(18, 21, 27, 0.08);
+}
+
+.product-thumb--md {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  box-shadow: 0 14px 30px rgba(18, 21, 27, 0.1);
 }
 
 .product-detail {
@@ -1855,7 +1926,7 @@ p {
 
 .order-passport__item {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 48px 1fr;
   align-items: center;
   gap: 10px;
   min-width: 0;
@@ -2029,6 +2100,20 @@ p {
   }
   50% {
     transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+@keyframes tinySpark {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.4) rotate(0deg);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0) scale(1) rotate(70deg);
   }
 }
 

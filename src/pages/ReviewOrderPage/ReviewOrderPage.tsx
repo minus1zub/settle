@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { AnimatedButton } from '../../components/AnimatedButton/AnimatedButton';
 import { OrderBuildingRitual } from '../../components/OrderBuildingRitual/OrderBuildingRitual';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
-import { ProductPlaceholder } from '../../components/ProductPlaceholder/ProductPlaceholder';
+import { ProductThumb } from '../../components/ProductThumb/ProductThumb';
 import { getAddressFormatted } from '../../features/address/address.privacy';
 import { orderService } from '../../services/orderService';
 import { useOrderStore } from '../../stores/orderStore';
@@ -135,7 +135,7 @@ export const ReviewOrderPage = () => {
         <div className="order-list compact-list">
           {items.slice(0, 5).map((item) => (
             <div className="order-item" key={item.productId}>
-              <ProductPlaceholder category={item.image ?? item.category} size="sm" />
+              <ProductThumb category={item.image ?? item.category} imageUrl={item.imageUrl} title={item.title} />
               <div>
                 <strong>{item.title}</strong>
                 <span>

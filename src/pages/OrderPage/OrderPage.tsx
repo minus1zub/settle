@@ -7,7 +7,7 @@ import { AnimatedValue } from '../../components/AnimatedValue/AnimatedValue';
 import { AnimatedButton } from '../../components/AnimatedButton/AnimatedButton';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
-import { ProductPlaceholder } from '../../components/ProductPlaceholder/ProductPlaceholder';
+import { ProductThumb } from '../../components/ProductThumb/ProductThumb';
 import { StatusSticker } from '../../components/StatusSticker/StatusSticker';
 import { getAddressFormatted } from '../../features/address/address.privacy';
 import { useOrderStore } from '../../stores/orderStore';
@@ -140,7 +140,7 @@ export const OrderPage = () => {
             exit={{ opacity: 0, x: -18, scale: 0.94 }}
             transition={{ type: 'spring', stiffness: 360, damping: 30 }}
           >
-            <ProductPlaceholder category={item.image ?? item.category} size="sm" />
+            <ProductThumb category={item.image ?? item.category} imageUrl={item.imageUrl} title={item.title} />
             <div>
               <strong>{item.title}</strong>
               <span>
