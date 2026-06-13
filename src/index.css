@@ -453,6 +453,10 @@ p {
   gap: 12px;
 }
 
+.product-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .room-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -604,23 +608,35 @@ p {
 
 .product-card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 112px 1fr;
-  gap: 12px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 26px;
-  padding: 12px;
-  box-shadow: 0 12px 34px rgba(18, 21, 27, 0.05);
+  aspect-ratio: 1;
+  display: block;
+  background: #11131a;
+  border-radius: 28px;
+  box-shadow: 0 18px 42px rgba(18, 21, 27, 0.1);
   transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
 }
 
 .product-card--added {
-  border-color: rgba(31, 169, 113, 0.48);
-  box-shadow: 0 20px 48px rgba(31, 169, 113, 0.12);
+  box-shadow:
+    0 20px 52px rgba(31, 169, 113, 0.16),
+    inset 0 0 0 2px rgba(154, 255, 200, 0.82);
+}
+
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-2px);
+    filter: saturate(1.04);
+    box-shadow: 0 24px 58px rgba(18, 21, 27, 0.15);
+  }
+}
+
+.product-card:active {
+  transform: scale(0.985);
 }
 
 .product-card__echo {
@@ -640,28 +656,60 @@ p {
 
 .product-card__media {
   display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.product-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+}
+
+.product-card__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 15, 0.02) 22%, rgba(8, 10, 15, 0.1) 50%, rgba(8, 10, 15, 0.78) 100%),
+    radial-gradient(circle at 15% 12%, rgba(255, 255, 255, 0.18), transparent 34%);
+  pointer-events: none;
 }
 
 .product-card__body {
+  position: absolute;
+  inset: auto 12px 12px 12px;
+  z-index: 3;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .product-card__title {
   display: block;
-  color: var(--color-text);
-  font-weight: 900;
-  line-height: 1.2;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 950;
+  line-height: 1.08;
   letter-spacing: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
 }
 
 .product-card p {
+  display: -webkit-box;
+  overflow: hidden;
   margin-top: 5px;
-  font-size: 13px;
-  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.34);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .product-card__footer {
@@ -671,10 +719,35 @@ p {
   gap: 8px;
 }
 
+.product-card__footer strong {
+  color: #ffffff;
+  font-size: 15px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
+}
+
 .inline-actions {
   display: flex;
   align-items: center;
   gap: 7px;
+}
+
+.product-card .icon-button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--color-text);
+  box-shadow: 0 10px 24px rgba(18, 21, 27, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.product-card .add-button {
+  width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border: 0;
+  font-size: 0;
+  box-shadow: 0 10px 24px rgba(59, 91, 255, 0.22);
 }
 
 .icon-button {
@@ -719,11 +792,21 @@ p {
 }
 
 .product-detail {
+  overflow: hidden;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 0;
   border-radius: 30px;
   padding: 14px;
   box-shadow: var(--shadow-soft);
+}
+
+.product-detail__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 18px 44px rgba(18, 21, 27, 0.1);
 }
 
 .price-large {
@@ -1962,10 +2045,6 @@ p {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .product-card {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 390px) {
@@ -1981,10 +2060,6 @@ p {
   .form-grid,
   .sticky-actions {
     grid-template-columns: 1fr;
-  }
-
-  .product-card {
-    grid-template-columns: 96px 1fr;
   }
 
   .add-button {

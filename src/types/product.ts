@@ -15,7 +15,8 @@ export type ProductCategory =
   | 'lighting'
   | 'textile'
   | 'decor'
-  | 'kitchenware';
+  | 'kitchenware'
+  | 'home-goods';
 
 export type ProductMood =
   | 'calm'
@@ -50,6 +51,7 @@ export type Product = {
   price: number;
   oldPrice?: number;
   image: ProductCategory;
+  imageUrl?: string;
   shortDescription: string;
   detailDescription: string;
   orderLine: string;

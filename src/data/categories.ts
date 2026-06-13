@@ -41,6 +41,11 @@ export const categories: Category[] = [
     title: 'Кухня и посуда',
     description: 'Посуда, хранение и полезные кухонные мелочи.',
   },
+  {
+    id: 'home-goods',
+    title: 'Товары для дома',
+    description: 'Небольшие полезные вещи, из которых дом становится собраннее.',
+  },
 ];
 
 export const getCategory = (id?: string) => categories.find((category) => category.id === id);

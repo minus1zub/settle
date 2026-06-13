@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { AnimatedButton } from '../../components/AnimatedButton/AnimatedButton';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
-import { ProductPlaceholder } from '../../components/ProductPlaceholder/ProductPlaceholder';
 import { getCategory } from '../../data/categories';
 import { getRoom } from '../../data/rooms';
 import { productService } from '../../services/productService';
@@ -41,9 +40,12 @@ export const ProductPage = () => {
   return (
     <div className="page">
       <section className="product-detail">
-        <motion.div layoutId={`product-image-${product.id}`}>
-          <ProductPlaceholder category={product.image} title={product.title} size="lg" />
-        </motion.div>
+        <motion.img
+          className="product-detail__image"
+          layoutId={`product-image-${product.id}`}
+          src={product.imageUrl}
+          alt={product.title}
+        />
         <span className="eyebrow">
           {room?.title} · {category?.title}
         </span>

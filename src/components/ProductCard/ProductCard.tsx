@@ -10,7 +10,6 @@ import { impactHaptic } from '../../utils/telegram';
 import { formatPrice } from '../../utils/price';
 import { motionTokens } from '../../motion/motionTokens';
 import { AnimatedButton } from '../AnimatedButton/AnimatedButton';
-import { ProductPlaceholder } from '../ProductPlaceholder/ProductPlaceholder';
 
 type Props = {
   product: Product;
@@ -77,10 +76,15 @@ export const ProductCard = ({ product }: Props) => {
         )}
       </AnimatePresence>
       <Link to={`/products/${product.id}`} className="product-card__media">
-        <motion.div layoutId={`product-image-${product.id}`}>
-          <ProductPlaceholder category={product.image} title={product.title} />
-        </motion.div>
+        <motion.img
+          layoutId={`product-image-${product.id}`}
+          src={product.imageUrl}
+          alt={product.title}
+          loading="lazy"
+          decoding="async"
+        />
       </Link>
+      <div className="product-card__veil" aria-hidden="true" />
       <div className="product-card__body">
         <div>
           <Link to={`/products/${product.id}`} className="product-card__title">

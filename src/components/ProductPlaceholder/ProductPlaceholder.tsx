@@ -1,4 +1,4 @@
-import { Armchair, BedDouble, Boxes, ChefHat, Lamp, PanelsTopLeft, Sofa, Table2 } from 'lucide-react';
+import { Armchair, BedDouble, Boxes, ChefHat, HousePlus, Lamp, PanelsTopLeft, Sofa, Table2 } from 'lucide-react';
 import type { ProductCategory } from '../../types/product';
 
 type Props = {
@@ -16,6 +16,7 @@ const iconMap = {
   textile: PanelsTopLeft,
   decor: Armchair,
   kitchenware: ChefHat,
+  'home-goods': HousePlus,
 } satisfies Record<ProductCategory, typeof Sofa>;
 
 export const ProductPlaceholder = ({ category, title, size = 'md' }: Props) => {
