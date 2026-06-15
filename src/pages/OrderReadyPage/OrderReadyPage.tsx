@@ -19,6 +19,7 @@ export const OrderReadyPage = () => {
   const navigate = useNavigate();
   const [order, setOrder] = useState<SettleOrder>();
   const [isLoading, setIsLoading] = useState(true);
+  const [showPaymentRitual, setShowPaymentRitual] = useState(true);
   const hasMilestone = useOrderStore((state) => state.hasMilestone);
   const markMilestone = useOrderStore((state) => state.markMilestone);
   const clearOrder = useOrderStore((state) => state.clearOrder);
@@ -45,10 +46,7 @@ export const OrderReadyPage = () => {
     const load = async () => {
       if (!slug) return;
       try {
-        const [loaded] = await Promise.all([
-          orderService.getOrderBySlug(slug),
-          new Promise((resolve) => window.setTimeout(resolve, 1700)),
-        ]);
+        const loaded = await orderService.getOrderBySlug(slug);
         if (active) setOrder(loaded);
       } catch (error) {
         console.error(error);
@@ -64,8 +62,8 @@ export const OrderReadyPage = () => {
     };
   }, [slug]);
 
-  if (isLoading) {
-    return <BankPaymentRitual />;
+  if (showPaymentRitual) {
+    return <BankPaymentRitual canContinue={!isLoading} onContinue={() => setShowPaymentRitual(false)} />;
   }
 
   if (!order) {

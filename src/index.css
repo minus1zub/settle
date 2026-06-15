@@ -1697,10 +1697,10 @@ p {
 }
 
 .bank-ritual {
-  min-height: calc(100svh - 190px);
+  min-height: calc(100svh - 154px);
   display: grid;
   place-items: center;
-  padding-top: 24px;
+  padding-top: 12px;
 }
 
 .bank-ritual__card {
@@ -1709,15 +1709,16 @@ p {
   width: min(100%, 390px);
   display: grid;
   justify-items: center;
-  gap: 18px;
-  padding: 24px 20px;
-  border-radius: 34px;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 36px;
   color: #ffffff;
   background:
-    radial-gradient(circle at 22% 18%, rgba(154, 255, 200, 0.26), transparent 7rem),
-    radial-gradient(circle at 86% 12%, rgba(59, 91, 255, 0.52), transparent 8rem),
-    linear-gradient(145deg, #111827, #17234a 58%, #10131b);
-  box-shadow: 0 28px 78px rgba(18, 21, 27, 0.24);
+    radial-gradient(circle at 12% 12%, rgba(154, 255, 200, 0.32), transparent 7.4rem),
+    radial-gradient(circle at 88% 18%, rgba(255, 236, 120, 0.2), transparent 7rem),
+    radial-gradient(circle at 78% 85%, rgba(59, 91, 255, 0.52), transparent 9rem),
+    linear-gradient(145deg, #07150f, #10251b 44%, #111827 100%);
+  box-shadow: 0 30px 86px rgba(18, 21, 27, 0.28);
 }
 
 .bank-ritual__glow {
@@ -1727,7 +1728,7 @@ p {
   border-radius: 999px;
   filter: blur(18px);
   opacity: 0.72;
-  animation: bankFloat 2.6s ease-in-out infinite alternate;
+  animation: bankFloat 4.2s ease-in-out infinite alternate;
 }
 
 .bank-ritual__glow--blue {
@@ -1762,9 +1763,51 @@ p {
   text-transform: uppercase;
 }
 
+.bank-ritual__secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 999px;
+  color: #0b3324;
+  background: #9affc8;
+  text-transform: lowercase;
+}
+
+.bank-ritual__terminal {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 26px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)),
+    rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.bank-ritual__terminal span {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.bank-ritual__terminal strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 1000;
+}
+
 .bank-ritual__orb {
-  width: 132px;
-  height: 132px;
+  width: 142px;
+  height: 142px;
   display: grid;
   place-items: center;
   border-radius: 999px;
@@ -1779,8 +1822,13 @@ p {
 
 .bank-ritual__orb--done {
   color: #0b3324;
-  background: #9affc8;
-  transform: scale(1.04);
+  background:
+    radial-gradient(circle at 38% 24%, #ffffff, transparent 2rem),
+    #9affc8;
+  transform: scale(1.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+    0 22px 62px rgba(154, 255, 200, 0.32);
 }
 
 .bank-ritual__ring {
@@ -1790,7 +1838,7 @@ p {
   border: 7px solid rgba(255, 255, 255, 0.2);
   border-top-color: #9affc8;
   border-right-color: #ffffff;
-  animation: bankSpin 0.78s linear infinite;
+  animation: bankSpin 1.08s linear infinite;
 }
 
 .bank-ritual__orb--done .bank-ritual__ring {
@@ -1802,12 +1850,18 @@ p {
   gap: 7px;
 }
 
+.bank-ritual__card-icon {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.94);
+}
+
 .bank-ritual__dots i {
   width: 9px;
   height: 9px;
   border-radius: 999px;
   background: #ffffff;
-  animation: bankPulse 0.82s ease-in-out infinite alternate;
+  animation: bankPulse 1.15s ease-in-out infinite alternate;
 }
 
 .bank-ritual__dots i:nth-child(2) {
@@ -1823,7 +1877,7 @@ p {
 }
 
 .bank-ritual__copy h1 {
-  font-size: 28px;
+  font-size: 29px;
   line-height: 1.02;
 }
 
@@ -1863,6 +1917,40 @@ p {
   transform: rotate(-2deg);
 }
 
+.bank-ritual__actions {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.bank-ritual__pay-button,
+.bank-ritual__continue-button {
+  width: 100%;
+  min-height: 58px;
+  font-size: 18px;
+  border-radius: 22px;
+}
+
+.bank-ritual__pay-button {
+  background:
+    linear-gradient(135deg, #fff27a, #d7ff69 55%, #9affc8);
+  color: #07150f;
+  box-shadow: 0 18px 48px rgba(215, 255, 105, 0.24);
+}
+
+.bank-ritual__continue-button {
+  background:
+    radial-gradient(circle at 22% 10%, rgba(255, 255, 255, 0.62), transparent 3.4rem),
+    linear-gradient(135deg, #9affc8, #19c874 55%, #08a65b);
+  color: #06140e;
+  box-shadow: 0 20px 56px rgba(25, 200, 116, 0.34);
+}
+
+.bank-ritual__pay-button:disabled,
+.bank-ritual__continue-button:disabled {
+  opacity: 0.78;
+}
+
 .bank-ritual__stars i {
   position: absolute;
   z-index: 1;
@@ -1871,7 +1959,7 @@ p {
   border-radius: 2px;
   background: #ffffff;
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
-  animation: bankSpark 1.2s ease-in-out infinite alternate;
+  animation: bankSpark 1.9s ease-in-out infinite alternate;
 }
 
 .bank-ritual__stars i:nth-child(1) {
@@ -1901,6 +1989,12 @@ p {
   right: 44%;
   top: 13%;
   animation-delay: -0.9s;
+}
+
+.bank-ritual__stars i:nth-child(6) {
+  left: 46%;
+  bottom: 14%;
+  animation-delay: -1.2s;
 }
 
 .drawer-overlay,
