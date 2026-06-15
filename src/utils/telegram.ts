@@ -57,6 +57,11 @@ export const initTelegramApp = () => {
   window.Telegram?.WebApp?.expand?.();
 };
 
+const getTelegramHashParams = () => {
+  const hash = window.location.hash.replace(/^#/, '');
+  return new URLSearchParams(hash);
+};
+
 export const getTelegramStartParam = () => {
   const sdkStartParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param;
   if (sdkStartParam) return sdkStartParam;
@@ -64,8 +69,22 @@ export const getTelegramStartParam = () => {
   const searchStartParam = new URLSearchParams(window.location.search).get('tgWebAppStartParam');
   if (searchStartParam) return searchStartParam;
 
-  const hash = window.location.hash.replace(/^#/, '');
-  return new URLSearchParams(hash).get('tgWebAppStartParam') ?? undefined;
+  const hashParams = getTelegramHashParams();
+  const hashStartParam = hashParams.get('tgWebAppStartParam');
+  if (hashStartParam) return hashStartParam;
+
+  const webAppData = hashParams.get('tgWebAppData');
+  if (!webAppData) return undefined;
+
+  return new URLSearchParams(webAppData).get('start_param') ?? undefined;
+};
+
+export const cleanTelegramRuntimeUrl = () => {
+  const hashParams = getTelegramHashParams();
+  if (!hashParams.has('tgWebAppData') && !hashParams.has('tgWebAppThemeParams')) return;
+
+  const cleanUrl = `${window.location.pathname}${window.location.search}`;
+  window.history.replaceState(window.history.state, document.title, cleanUrl);
 };
 
 export const impactHaptic = (style: 'light' | 'medium' | 'heavy' = 'light') => {

@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTelegramStartParam } from '../../utils/telegram';
+import { cleanTelegramRuntimeUrl, getTelegramStartParam } from '../../utils/telegram';
 
 export const TelegramStartParamRedirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const startParam = getTelegramStartParam();
+    cleanTelegramRuntimeUrl();
     if (!startParam?.startsWith('order_')) return;
 
     const slug = startParam.replace(/^order_/, '');
