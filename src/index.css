@@ -792,6 +792,17 @@ p {
   backdrop-filter: blur(10px);
 }
 
+.product-card .icon-button svg,
+.product-card .add-button svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  display: block;
+  flex: none;
+  stroke-width: 2.7;
+}
+
 .product-card .icon-button.active {
   background: rgba(255, 255, 255, 0.92);
   color: var(--color-danger);
@@ -925,10 +936,11 @@ p {
 }
 
 .quantity {
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: 30px 34px 30px;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-items: center;
+  gap: 4px;
   margin-top: 4px;
   width: fit-content;
   max-width: 100%;
@@ -951,9 +963,10 @@ p {
 }
 
 .quantity-value {
-  min-width: 28px;
-  display: inline-flex;
-  justify-content: center;
+  min-width: 34px;
+  display: inline-grid;
+  place-items: center;
+  text-align: center;
   color: var(--color-accent);
   font-weight: 950;
   font-size: 16px;
@@ -1683,6 +1696,213 @@ p {
   font-weight: 900;
 }
 
+.bank-ritual {
+  min-height: calc(100svh - 190px);
+  display: grid;
+  place-items: center;
+  padding-top: 24px;
+}
+
+.bank-ritual__card {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 390px);
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 24px 20px;
+  border-radius: 34px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(154, 255, 200, 0.26), transparent 7rem),
+    radial-gradient(circle at 86% 12%, rgba(59, 91, 255, 0.52), transparent 8rem),
+    linear-gradient(145deg, #111827, #17234a 58%, #10131b);
+  box-shadow: 0 28px 78px rgba(18, 21, 27, 0.24);
+}
+
+.bank-ritual__glow {
+  position: absolute;
+  width: 116px;
+  height: 116px;
+  border-radius: 999px;
+  filter: blur(18px);
+  opacity: 0.72;
+  animation: bankFloat 2.6s ease-in-out infinite alternate;
+}
+
+.bank-ritual__glow--blue {
+  left: -30px;
+  bottom: 34px;
+  background: #3b5bff;
+}
+
+.bank-ritual__glow--mint {
+  right: -22px;
+  top: 50px;
+  background: #9affc8;
+  animation-delay: -0.7s;
+}
+
+.bank-ritual__top,
+.bank-ritual__copy,
+.bank-ritual__chips,
+.bank-ritual__orb {
+  position: relative;
+  z-index: 1;
+}
+
+.bank-ritual__top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.bank-ritual__orb {
+  width: 132px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 18px 48px rgba(59, 91, 255, 0.28);
+  transition:
+    background 0.24s ease,
+    transform 0.24s ease;
+}
+
+.bank-ritual__orb--done {
+  color: #0b3324;
+  background: #9affc8;
+  transform: scale(1.04);
+}
+
+.bank-ritual__ring {
+  position: absolute;
+  inset: 9px;
+  border-radius: inherit;
+  border: 7px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #9affc8;
+  border-right-color: #ffffff;
+  animation: bankSpin 0.78s linear infinite;
+}
+
+.bank-ritual__orb--done .bank-ritual__ring {
+  opacity: 0;
+}
+
+.bank-ritual__dots {
+  display: flex;
+  gap: 7px;
+}
+
+.bank-ritual__dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  animation: bankPulse 0.82s ease-in-out infinite alternate;
+}
+
+.bank-ritual__dots i:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.bank-ritual__dots i:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.bank-ritual__copy {
+  text-align: center;
+}
+
+.bank-ritual__copy h1 {
+  font-size: 28px;
+  line-height: 1.02;
+}
+
+.bank-ritual__copy p {
+  max-width: 260px;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 750;
+}
+
+.bank-ritual__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bank-ritual__chips span {
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: #10131b;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 12px;
+  font-weight: 950;
+  transform: rotate(-1.4deg);
+}
+
+.bank-ritual__chips span:nth-child(2) {
+  color: #0b3324;
+  background: #9affc8;
+  transform: rotate(1.2deg);
+}
+
+.bank-ritual__chips span:nth-child(3) {
+  color: #ffffff;
+  background: var(--color-accent);
+  transform: rotate(-2deg);
+}
+
+.bank-ritual__stars i {
+  position: absolute;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+  animation: bankSpark 1.2s ease-in-out infinite alternate;
+}
+
+.bank-ritual__stars i:nth-child(1) {
+  left: 19%;
+  top: 25%;
+}
+
+.bank-ritual__stars i:nth-child(2) {
+  right: 23%;
+  top: 22%;
+  animation-delay: -0.2s;
+}
+
+.bank-ritual__stars i:nth-child(3) {
+  left: 25%;
+  bottom: 25%;
+  animation-delay: -0.45s;
+}
+
+.bank-ritual__stars i:nth-child(4) {
+  right: 18%;
+  bottom: 30%;
+  animation-delay: -0.7s;
+}
+
+.bank-ritual__stars i:nth-child(5) {
+  right: 44%;
+  top: 13%;
+  animation-delay: -0.9s;
+}
+
 .drawer-overlay,
 .drawer-content,
 .drawer-handle {
@@ -1814,6 +2034,9 @@ p {
 .order-passport {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   display: grid;
   gap: 16px;
   padding: 18px;
@@ -1873,6 +2096,7 @@ p {
   justify-content: space-between;
   gap: 16px;
   align-items: flex-start;
+  min-width: 0;
 }
 
 .order-passport__top strong {
@@ -1881,6 +2105,7 @@ p {
   font-size: 32px;
   line-height: 1;
   font-weight: 1000;
+  overflow-wrap: anywhere;
 }
 
 .order-passport__brand,
@@ -1892,6 +2117,7 @@ p {
 }
 
 .order-passport__status {
+  flex: none;
   padding: 9px 12px;
   border-radius: 12px;
   color: #ffffff;
@@ -2142,6 +2368,43 @@ p {
   }
 }
 
+@keyframes bankSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bankPulse {
+  from {
+    opacity: 0.35;
+    transform: translateY(3px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-3px) scale(1);
+  }
+}
+
+@keyframes bankFloat {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.92);
+  }
+  to {
+    transform: translate3d(12px, -10px, 0) scale(1.08);
+  }
+}
+
+@keyframes bankSpark {
+  from {
+    opacity: 0.18;
+    transform: scale(0.5) rotate(0deg);
+  }
+  to {
+    opacity: 0.95;
+    transform: scale(1.25) rotate(45deg);
+  }
+}
+
 @media (min-width: 520px) {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2190,6 +2453,27 @@ p {
     min-height: 32px;
   }
 
+  .product-card .icon-button svg,
+  .product-card .add-button svg {
+    width: 19px;
+    height: 19px;
+    min-width: 19px;
+    min-height: 19px;
+  }
+
+  .order-item {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .order-item > .icon-button {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .quantity {
+    grid-template-columns: 30px 36px 30px;
+  }
+
   .order-card-preview {
     border-radius: 26px;
     padding: 8px;
@@ -2222,6 +2506,19 @@ p {
 
   .order-passport__metrics {
     grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  }
+
+  .order-passport__top {
+    gap: 10px;
+  }
+
+  .order-passport__top strong {
+    font-size: 28px;
+  }
+
+  .order-passport__status {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 
   .order-passport__metrics div {

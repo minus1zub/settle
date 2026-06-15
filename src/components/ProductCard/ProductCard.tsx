@@ -129,7 +129,7 @@ export const ProductCard = ({ product }: Props) => {
               onClick={handleFavorite}
               aria-label="Сохранить"
             >
-              <Heart size={18} />
+              <Heart size={20} strokeWidth={2.6} fill={isFavorite ? 'currentColor' : 'none'} />
             </button>
             <AnimatedButton
               variant="primary-dopamine"
@@ -137,7 +137,7 @@ export const ProductCard = ({ product }: Props) => {
               className={`add-button ${currentQuantity > 0 ? 'add-button--in-order' : ''}`}
               onClick={handleAdd}
             >
-              <Plus size={17} />
+              <Plus size={20} strokeWidth={2.7} />
               {currentQuantity > 0 ? 'В заказе' : 'Добавить'}
             </AnimatedButton>
           </div>

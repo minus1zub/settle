@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { AnimatedButton } from '../../components/AnimatedButton/AnimatedButton';
+import { BankPaymentRitual } from '../../components/BankPaymentRitual/BankPaymentRitual';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
@@ -44,7 +45,10 @@ export const OrderReadyPage = () => {
     const load = async () => {
       if (!slug) return;
       try {
-        const loaded = await orderService.getOrderBySlug(slug);
+        const [loaded] = await Promise.all([
+          orderService.getOrderBySlug(slug),
+          new Promise((resolve) => window.setTimeout(resolve, 1700)),
+        ]);
         if (active) setOrder(loaded);
       } catch (error) {
         console.error(error);
@@ -61,14 +65,7 @@ export const OrderReadyPage = () => {
   }, [slug]);
 
   if (isLoading) {
-    return (
-      <div className="page">
-        <section className="empty-state">
-          <h1>Открываем карточку</h1>
-          <p>Секунду, заказ уже почти на экране.</p>
-        </section>
-      </div>
-    );
+    return <BankPaymentRitual />;
   }
 
   if (!order) {
