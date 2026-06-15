@@ -201,7 +201,7 @@ export const OrderPage = () => {
           Очистить
         </AnimatedButton>
         <AnimatedButton type="button" variant="primary-dopamine" className="primary-button" onClick={handleReview}>
-          Проверить заказ
+          Следующий шаг
         </AnimatedButton>
       </div>
     </div>
