@@ -9,7 +9,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
 import { orderService } from '../../services/orderService';
-import { createPublicOrderUrl, createTelegramOrderUrl, shareService } from '../../services/shareService';
+import { createPublicOrderUrl, shareService } from '../../services/shareService';
 import { useOrderStore } from '../../stores/orderStore';
 import type { SettleOrder } from '../../types/order';
 import { notificationHaptic } from '../../utils/telegram';
@@ -24,8 +24,7 @@ export const OrderReadyPage = () => {
   const markMilestone = useOrderStore((state) => state.markMilestone);
   const clearOrder = useOrderStore((state) => state.clearOrder);
   const publicUrl = useMemo(() => (order?.slug ? createPublicOrderUrl(order.slug) : ''), [order]);
-  const telegramUrl = useMemo(() => (order?.slug ? createTelegramOrderUrl(order.slug) : undefined), [order]);
-  const shareUrl = telegramUrl ?? publicUrl;
+  const shareUrl = publicUrl;
 
   const notifyLinkReady = () => {
     if (!hasMilestone('link-ready')) {
