@@ -63,7 +63,7 @@ export const OrderReadyPage = () => {
   }, [slug]);
 
   if (showPaymentRitual) {
-    return <BankPaymentRitual canContinue={!isLoading} onContinue={() => setShowPaymentRitual(false)} />;
+    return <BankPaymentRitual canContinue={!isLoading} totalPrice={order?.totalPrice} onContinue={() => setShowPaymentRitual(false)} />;
   }
 
   if (!order) {

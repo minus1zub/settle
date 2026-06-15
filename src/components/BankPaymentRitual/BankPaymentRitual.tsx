@@ -1,18 +1,21 @@
 import { ArrowRight, Check, CreditCard, ShieldCheck, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { formatPrice } from '../../utils/price';
 import { AnimatedButton } from '../AnimatedButton/AnimatedButton';
 
 type Props = {
   canContinue: boolean;
   onContinue: () => void;
+  totalPrice?: number;
 };
 
 const phases = ['Проверяем заказ', 'Банк думает красиво', 'Почти готово', 'Оплата прошла'];
 
-export const BankPaymentRitual = ({ canContinue, onContinue }: Props) => {
+export const BankPaymentRitual = ({ canContinue, onContinue, totalPrice }: Props) => {
   const [phase, setPhase] = useState(0);
   const [status, setStatus] = useState<'idle' | 'processing' | 'done'>('idle');
+  const formattedTotal = typeof totalPrice === 'number' ? formatPrice(totalPrice) : 'считаем';
 
   const startPayment = () => {
     if (status !== 'idle') return;
@@ -63,9 +66,12 @@ export const BankPaymentRitual = ({ canContinue, onContinue }: Props) => {
         </div>
 
         <div className="bank-ritual__terminal">
+          <p>
+            Ваш заказ составил <strong>{formattedTotal}</strong>
+          </p>
           <div>
             <span>К оплате</span>
-            <strong>0 ₽</strong>
+            <strong>{formattedTotal}</strong>
           </div>
           <CreditCard size={28} />
         </div>
@@ -118,10 +124,10 @@ export const BankPaymentRitual = ({ canContinue, onContinue }: Props) => {
             <h1>{phases[phase]}</h1>
             <p>
               {isDone
-                ? 'Галочка есть. Деньги не списали, зато заказ выглядит так, будто все серьезно.'
+                ? 'Галочка есть. Заказ готов, можно возвращаться в магазин и смотреть карточку.'
                 : isProcessing
-                  ? 'Кружок крутится, звездочки сверяются, приложение банка делает важный вид.'
-                  : 'Это фейковая оплата для настроения. Нажми кнопку, и банк красиво соберет карточку.'}
+                  ? 'Кружок крутится, звездочки сверяются, банк бережно собирает подтверждение.'
+                  : 'Проверим сумму и красиво подготовим карточку заказа.'}
             </p>
           </motion.div>
         </AnimatePresence>
