@@ -1,4 +1,4 @@
-import { Copy, ExternalLink, Sparkles } from 'lucide-react';
+import { ExternalLink, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -119,18 +119,6 @@ export const OrderReadyPage = () => {
         >
           <Sparkles size={18} />
           Поделиться заказом
-        </AnimatedButton>
-        <AnimatedButton
-          type="button"
-          variant="utility"
-          className="secondary-button full-width"
-          onClick={async () => {
-            await shareService.copyMessage(order, shareUrl);
-            notifyLinkReady();
-          }}
-        >
-          <Copy size={18} />
-          Скопировать сообщение
         </AnimatedButton>
         <AnimatedButton type="button" variant="utility" className="secondary-button full-width" onClick={() => navigate(`/order/${order.slug}`)}>
           <ExternalLink size={18} />

@@ -786,10 +786,15 @@ p {
   width: 34px;
   height: 34px;
   border: 0;
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--color-text);
+  background: rgba(16, 19, 27, 0.86);
+  color: #ffffff;
   box-shadow: 0 10px 24px rgba(18, 21, 27, 0.16);
   backdrop-filter: blur(10px);
+}
+
+.product-card .icon-button.active {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-danger);
 }
 
 .product-card .add-button {
@@ -893,7 +898,7 @@ p {
 
 .order-item {
   display: grid;
-  grid-template-columns: 48px 1fr auto;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
   padding: 12px;
@@ -922,17 +927,22 @@ p {
 .quantity {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-top: 4px;
   width: fit-content;
+  max-width: 100%;
   padding: 4px;
   border-radius: 999px;
   background: var(--color-surface-soft);
 }
 
 .quantity button {
+  display: inline-grid;
+  place-items: center;
   width: 30px;
   height: 30px;
+  flex: 0 0 30px;
   border-radius: 999px;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -1553,6 +1563,7 @@ p {
 
 .ready-page {
   gap: 18px;
+  padding-bottom: 118px;
 }
 
 .success-badge {
@@ -1569,7 +1580,6 @@ p {
 }
 
 .order-card-preview {
-  aspect-ratio: 4 / 5;
   width: min(100%, 390px);
   margin: 0 auto;
   padding: 10px;
@@ -1581,7 +1591,7 @@ p {
 }
 
 .order-card-preview__inner {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   gap: 13px;
@@ -1595,9 +1605,10 @@ p {
 .order-card-preview__top,
 .order-card-preview__total {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .status-pill {
@@ -1652,6 +1663,12 @@ p {
 .order-phrase {
   color: var(--color-text);
   font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.order-card-preview__total strong {
+  text-align: right;
 }
 
 .order-card-preview__cta {
@@ -1889,7 +1906,7 @@ p {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
   gap: 8px;
 }
 
@@ -1910,9 +1927,8 @@ p {
 .order-passport__metrics strong {
   display: block;
   margin-top: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
   font-size: 15px;
   font-weight: 950;
 }
@@ -2132,6 +2148,91 @@ p {
   }
 }
 
+@media (max-width: 430px) {
+  .app-main {
+    padding-inline: 14px;
+  }
+
+  .product-grid {
+    gap: 10px;
+  }
+
+  .product-card {
+    border-radius: 24px;
+  }
+
+  .product-card__body {
+    inset: auto 9px 9px 9px;
+    gap: 7px;
+  }
+
+  .product-card__title {
+    font-size: 15px;
+  }
+
+  .product-card p {
+    font-size: 11px;
+    -webkit-line-clamp: 2;
+  }
+
+  .product-card__footer {
+    gap: 6px;
+  }
+
+  .product-card__footer strong {
+    font-size: 14px;
+  }
+
+  .product-card .icon-button,
+  .product-card .add-button {
+    width: 32px;
+    height: 32px;
+    min-height: 32px;
+  }
+
+  .order-card-preview {
+    border-radius: 26px;
+    padding: 8px;
+  }
+
+  .order-card-preview__inner {
+    gap: 10px;
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .order-card-preview h2 {
+    font-size: 21px;
+  }
+
+  .order-card-row {
+    grid-template-columns: 44px minmax(0, 1fr);
+    padding: 7px;
+  }
+
+  .order-card-row .product-thumb--sm {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .order-phrase {
+    font-size: 13px;
+  }
+
+  .order-passport__metrics {
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  }
+
+  .order-passport__metrics div {
+    padding: 11px;
+  }
+
+  .order-passport__metrics strong {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 390px) {
   h1 {
     font-size: 30px;
@@ -2142,12 +2243,11 @@ p {
   }
 
   .room-grid.compact,
-  .form-grid,
-  .sticky-actions {
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
-  .add-button {
+  .product-card .add-button {
     width: 38px;
     padding: 0;
     font-size: 0;
