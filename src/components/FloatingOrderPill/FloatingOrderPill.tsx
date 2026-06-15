@@ -7,7 +7,7 @@ import { motionTokens } from '../../motion/motionTokens';
 import { AnimatedValue } from '../AnimatedValue/AnimatedValue';
 import { StatusSticker } from '../StatusSticker/StatusSticker';
 
-const hiddenRoutes = ['/order', '/review', '/order-ready'];
+const hiddenRoutes = ['/address', '/order', '/review', '/order-ready'];
 
 const shouldHideOnRoute = (pathname: string) =>
   hiddenRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`)) || /^\/order\/[^/]+/.test(pathname);
