@@ -57,7 +57,16 @@ export const initTelegramApp = () => {
   window.Telegram?.WebApp?.expand?.();
 };
 
-export const getTelegramStartParam = () => window.Telegram?.WebApp?.initDataUnsafe?.start_param;
+export const getTelegramStartParam = () => {
+  const sdkStartParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param;
+  if (sdkStartParam) return sdkStartParam;
+
+  const searchStartParam = new URLSearchParams(window.location.search).get('tgWebAppStartParam');
+  if (searchStartParam) return searchStartParam;
+
+  const hash = window.location.hash.replace(/^#/, '');
+  return new URLSearchParams(hash).get('tgWebAppStartParam') ?? undefined;
+};
 
 export const impactHaptic = (style: 'light' | 'medium' | 'heavy' = 'light') => {
   window.Telegram?.WebApp?.HapticFeedback?.impactOccurred?.(style);
