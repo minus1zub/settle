@@ -30,6 +30,7 @@ VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 VITE_PUBLIC_APP_URL=
 VITE_TELEGRAM_BOT_USERNAME=settle_home_bot
+VITE_TELEGRAM_APP_NAME=
 VITE_DADATA_TOKEN=
 VITE_2GIS_KEY=
 VITE_DEFAULT_CITY=Якутск
@@ -98,11 +99,26 @@ VITE_PUBLIC_APP_URL/order/:slug
 
 If `VITE_PUBLIC_APP_URL` is empty, the app uses `window.location.origin`.
 
+For native Telegram Mini App sharing, also set the Mini App short name from BotFather:
+
+```env
+VITE_TELEGRAM_BOT_USERNAME=settle_home_bot
+VITE_TELEGRAM_APP_NAME=your_mini_app_short_name
+```
+
+When both values are present, shared order links are built as:
+
+```txt
+https://t.me/<bot_username>/<mini_app_short_name>?startapp=order_<slug>
+```
+
+The app reads `startapp` and opens `/order/:slug` automatically.
+
 ## Implemented
 
 - Mobile-first app shell with bottom navigation.
 - Home, rooms, catalog, product, order, address, public order, saved pages.
-- 7 rooms and 30 mock SKU.
+- 7 rooms and 60 SKU with product images.
 - Local draft order with quantities, address, saved products, last slug.
 - Order card preview with order number, status, items, total, phrase, CTA.
 - Supabase service for saving and reading public orders.

@@ -6,6 +6,7 @@ export type TelegramUser = {
 
 type TelegramWebApp = {
   initDataUnsafe?: {
+    start_param?: string;
     user?: {
       id?: number;
       first_name?: string;
@@ -55,6 +56,8 @@ export const initTelegramApp = () => {
   window.Telegram?.WebApp?.ready?.();
   window.Telegram?.WebApp?.expand?.();
 };
+
+export const getTelegramStartParam = () => window.Telegram?.WebApp?.initDataUnsafe?.start_param;
 
 export const impactHaptic = (style: 'light' | 'medium' | 'heavy' = 'light') => {
   window.Telegram?.WebApp?.HapticFeedback?.impactOccurred?.(style);

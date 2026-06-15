@@ -8,7 +8,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import { OrderPassport } from '../../components/OrderPassport/OrderPassport';
 import { orderService } from '../../services/orderService';
-import { createPublicOrderUrl, shareService } from '../../services/shareService';
+import { createPublicOrderUrl, createTelegramOrderUrl, shareService } from '../../services/shareService';
 import { useOrderStore } from '../../stores/orderStore';
 import type { SettleOrder } from '../../types/order';
 import { notificationHaptic } from '../../utils/telegram';
@@ -22,6 +22,8 @@ export const OrderReadyPage = () => {
   const markMilestone = useOrderStore((state) => state.markMilestone);
   const clearOrder = useOrderStore((state) => state.clearOrder);
   const publicUrl = useMemo(() => (order?.slug ? createPublicOrderUrl(order.slug) : ''), [order]);
+  const telegramUrl = useMemo(() => (order?.slug ? createTelegramOrderUrl(order.slug) : undefined), [order]);
+  const shareUrl = telegramUrl ?? publicUrl;
 
   const notifyLinkReady = () => {
     if (!hasMilestone('link-ready')) {
@@ -111,7 +113,7 @@ export const OrderReadyPage = () => {
           variant="primary-dopamine"
           className="primary-button full-width glow-button"
           onClick={async () => {
-            await shareService.shareOrder(publicUrl, order.title);
+            await shareService.shareOrder(order, shareUrl);
             notifyLinkReady();
           }}
         >
@@ -123,12 +125,12 @@ export const OrderReadyPage = () => {
           variant="utility"
           className="secondary-button full-width"
           onClick={async () => {
-            await shareService.copyLink(publicUrl);
+            await shareService.copyMessage(order, shareUrl);
             notifyLinkReady();
           }}
         >
           <Copy size={18} />
-          Скопировать ссылку
+          Скопировать сообщение
         </AnimatedButton>
         <AnimatedButton type="button" variant="utility" className="secondary-button full-width" onClick={() => navigate(`/order/${order.slug}`)}>
           <ExternalLink size={18} />

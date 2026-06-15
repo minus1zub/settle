@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { BottomNav } from '../components/BottomNav/BottomNav';
 import { FloatingOrderPill } from '../components/FloatingOrderPill/FloatingOrderPill';
 import { Header } from '../components/Header/Header';
+import { TelegramStartParamRedirect } from '../components/TelegramStartParamRedirect/TelegramStartParamRedirect';
 import { useOrderStore } from '../stores/orderStore';
 import { initTelegramApp } from '../utils/telegram';
 import { AppRoutes } from './routes';
@@ -39,6 +40,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <LayoutGroup>
+        <TelegramStartParamRedirect />
         <div className="app-shell">
           <Header />
           <main className="app-main">
